@@ -1,4 +1,6 @@
 const refs = {
+  body: document.body,
+  divTimer: document.querySelector(".timer"),
   spanDays: document.querySelector('[data-value="days"]'),
   spanHours: document.querySelector('[data-value="hours"]'),
   spanMins: document.querySelector('[data-value="mins"]'),
@@ -7,17 +9,20 @@ const refs = {
 
 class CountdownTimer {
   constructor({ targetDate, selector }) {
-    this.targetDate = targetDate;
-    this.selector = selector;
+    this.targetDate = targetDate.getTime();
+    this.selector = selector.slice(1);
+    this.start();
   }
 
   start() {
+    refs.divTimer.setAttribute("id", this.selector);
     setInterval(() => {
-      const correntTime = new Date();
+      const correntTime = Date.now();
       const deltaTime = this.targetDate - correntTime;
       const { days, hours, mins, secs } = this.getTimeComponents(deltaTime);
 
-      console.log(`${days}:${hours}:${mins}:${secs}`);
+      // console.log(`${days}:${hours}:${mins}:${secs}`);
+
       refs.spanDays.textContent = days;
       refs.spanHours.textContent = hours;
       refs.spanMins.textContent = mins;
@@ -45,5 +50,3 @@ const timer1 = new CountdownTimer({
   selector: "#timer-1",
   targetDate: new Date("Jul 17, 2022"),
 });
-
-timer1.start();
