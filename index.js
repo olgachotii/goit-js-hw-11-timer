@@ -2,31 +2,33 @@ class CountdownTimer {
   constructor({ targetDate, selector }) {
     this.targetDate = targetDate.getTime();
     this.selector = selector.slice(1);
-    this.start();
 
     this.timer = document.querySelector(".timer");
     this.days = document.querySelector('[data-value="days"]');
     this.hours = document.querySelector('[data-value="hours"]');
     this.mins = document.querySelector('[data-value="mins"]');
     this.secs = document.querySelector('[data-value="secs"]');
-    console.log(this.timer);
+
+    this.start();
   }
 
   start() {
-    // this.timer.setAttribute("id", this.selector);
-    console.log(this.timer); // undefined
-    setInterval(() => {
-      console.log(this.timer); // видит таймер
+    this.timer.setAttribute("id", this.selector);
 
-      const correntTime = Date.now();
-      const deltaTime = this.targetDate - correntTime;
-      const { days, hours, mins, secs } = this.getTimeComponents(deltaTime);
+    setInterval(
+      () => {
+        const correntTime = Date.now();
+        const deltaTime = this.targetDate - correntTime;
+        const { days, hours, mins, secs } = this.getTimeComponents(deltaTime);
 
-      this.days.textContent = days;
-      this.hours.textContent = hours;
-      this.mins.textContent = mins;
-      this.secs.textContent = secs;
-    }, 1000);
+        this.days.textContent = days;
+        this.hours.textContent = hours;
+        this.mins.textContent = mins;
+        this.secs.textContent = secs;
+      },
+      1000,
+      this
+    );
   }
 
   getTimeComponents(time) {
