@@ -1,32 +1,31 @@
-const refs = {
-  body: document.body,
-  divTimer: document.querySelector(".timer"),
-  spanDays: document.querySelector('[data-value="days"]'),
-  spanHours: document.querySelector('[data-value="hours"]'),
-  spanMins: document.querySelector('[data-value="mins"]'),
-  spanSecs: document.querySelector('[data-value="secs"]'),
-};
-
 class CountdownTimer {
   constructor({ targetDate, selector }) {
     this.targetDate = targetDate.getTime();
     this.selector = selector.slice(1);
     this.start();
+
+    this.timer = document.querySelector(".timer");
+    this.days = document.querySelector('[data-value="days"]');
+    this.hours = document.querySelector('[data-value="hours"]');
+    this.mins = document.querySelector('[data-value="mins"]');
+    this.secs = document.querySelector('[data-value="secs"]');
+    console.log(this.timer);
   }
 
   start() {
-    refs.divTimer.setAttribute("id", this.selector);
+    // this.timer.setAttribute("id", this.selector);
+    console.log(this.timer); // undefined
     setInterval(() => {
+      console.log(this.timer); // видит таймер
+
       const correntTime = Date.now();
       const deltaTime = this.targetDate - correntTime;
       const { days, hours, mins, secs } = this.getTimeComponents(deltaTime);
 
-      // console.log(`${days}:${hours}:${mins}:${secs}`);
-
-      refs.spanDays.textContent = days;
-      refs.spanHours.textContent = hours;
-      refs.spanMins.textContent = mins;
-      refs.spanSecs.textContent = secs;
+      this.days.textContent = days;
+      this.hours.textContent = hours;
+      this.mins.textContent = mins;
+      this.secs.textContent = secs;
     }, 1000);
   }
 
