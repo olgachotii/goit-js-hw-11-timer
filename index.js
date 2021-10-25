@@ -15,20 +15,16 @@ class CountdownTimer {
   start() {
     this.timer.setAttribute("id", this.selector);
 
-    setInterval(
-      () => {
-        const correntTime = Date.now();
-        const deltaTime = this.targetDate - correntTime;
-        const { days, hours, mins, secs } = this.getTimeComponents(deltaTime);
+    setInterval(() => {
+      const correntTime = Date.now();
+      const deltaTime = this.targetDate - correntTime;
+      const { days, hours, mins, secs } = this.getTimeComponents(deltaTime);
 
-        this.days.textContent = days;
-        this.hours.textContent = hours;
-        this.mins.textContent = mins;
-        this.secs.textContent = secs;
-      },
-      1000,
-      this
-    );
+      this.days.textContent = days;
+      this.hours.textContent = hours;
+      this.mins.textContent = mins;
+      this.secs.textContent = secs;
+    }, 1000);
   }
 
   getTimeComponents(time) {
